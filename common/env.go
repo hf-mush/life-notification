@@ -8,21 +8,21 @@ import (
 	"github.com/joho/godotenv"
 )
 
-const envVarEnvFile = "ENV_FILE"
-const defaultEnvFile = ".env"
+const varDotEnv = "DOT_ENV_FILE"
+const defaultDotEnv = ".env"
 
-// LoadEnv apply .env to ENVIRONMENT VARIABLE.
-func LoadEnv() {
-	if _, found := os.LookupEnv(envVarEnvFile); !found {
-		os.Setenv(envVarEnvFile, defaultEnvFile)
-		log.Println(fmt.Sprintf("no env file specified. try to load default %s.", defaultEnvFile))
+// LoadDotEnv apply .env to VARIABLE.
+func LoadDotEnv() {
+	if _, found := os.LookupEnv(varDotEnv); !found {
+		os.Setenv(varDotEnv, defaultDotEnv)
+		log.Println(fmt.Sprintf("no env file specified. try to load default %s.", defaultDotEnv))
 	}
 
-	envFile := os.Getenv(envVarEnvFile)
-	if err := godotenv.Load(envFile); err != nil {
+	dotEnvFile := os.Getenv(varDotEnv)
+	if err := godotenv.Load(dotEnvFile); err != nil {
 		log.Println(fmt.Sprintf("no env file loaded %#v", err))
 	} else {
-		log.Println(fmt.Sprintf("env file loaded: %s", envFile))
+		log.Println(fmt.Sprintf("env file loaded: %s", dotEnvFile))
 	}
 }
 
