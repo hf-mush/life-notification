@@ -2,6 +2,7 @@ package infrastructure
 
 import (
 	"bytes"
+	"encoding/json"
 	"fmt"
 	"io/ioutil"
 	"log"
@@ -12,9 +13,33 @@ import (
 
 // https://api.slack.com/reference
 
+// SlackChatWriteBody request body.
+type SlackChatWriteBody struct {
+	Channel string `json:"channel"`
+	Text    string `json:"text"`
+	Mrkdwn  bool   `json:"mrkdwn"`
+}
+
 // SlackChatWrite POST request
-func SlackChatWrite(requestBody []byte) error {
-	err := postRequest("chat.postMessage", requestBody)
+func SlackChatWrite(message string) error {
+	channel := common.GetSlackChannel()
+	if channel == "" {
+		return fmt.Errorf("Error: %s", "channel is empty")
+	}
+
+	requestBody := SlackChatWriteBody{
+		Channel: channel,
+		Text:    message,
+		Mrkdwn:  false,
+	}
+
+	reqJSON, err := json.Marshal(&requestBody)
+	if err != nil {
+		log.Println(fmt.Sprintf("%v", err.Error()))
+		return err
+	}
+
+	err = postRequest("chat.postMessage", reqJSON)
 	if err != nil {
 		log.Println(fmt.Sprintf("error at SlackChatWrite : %v", err.Error()))
 		return err
@@ -23,7 +48,6 @@ func SlackChatWrite(requestBody []byte) error {
 }
 
 func postRequest(method string, requestBody []byte) error {
-
 	requestURL := common.GetSlackAPIURL() + "/" + method
 	req, err := http.NewRequest("POST", requestURL, bytes.NewBuffer(requestBody))
 	if err != nil {
@@ -52,6 +76,5 @@ func postRequest(method string, requestBody []byte) error {
 		log.Println(fmt.Sprintf("%v %v", resp.StatusCode, string(body)))
 		return fmt.Errorf("Error: %s", "not success")
 	}
-
 	return nil
 }
