@@ -10,7 +10,7 @@ import (
 )
 
 func main() {
-	common.LoadEnv()
+	common.LoadDotEnv()
 
 	message := "sample message text"
 
