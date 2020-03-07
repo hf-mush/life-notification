@@ -8,8 +8,8 @@ import (
 	"github.com/hf-mush/life-notification/infrastructure"
 )
 
-// ChatWriteBody request body.
-type ChatWriteBody struct {
+// SlackChatWriteBody request body.
+type SlackChatWriteBody struct {
 	Channel string `json:"channel"`
 	Text    string `json:"text"`
 	Mrkdwn  bool   `json:"mrkdwn"`
@@ -17,7 +17,7 @@ type ChatWriteBody struct {
 
 // SlackChatPost post chat message.
 func SlackChatPost(channel string, message string) error {
-	requestBody := ChatWriteBody{
+	requestBody := SlackChatWriteBody{
 		Channel: channel,
 		Text:    message,
 		Mrkdwn:  false,
