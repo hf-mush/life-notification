@@ -12,10 +12,9 @@ import (
 func main() {
 	common.LoadEnv()
 
-	channel := common.GetSlackChannel()
 	message := "sample message text"
 
-	err := usecases.SlackChatPost(channel, message)
+	err := usecases.SlackChatPost(message)
 	if err != nil {
 		log.Println(fmt.Sprintf("%v", err.Error()))
 		os.Exit(1)
