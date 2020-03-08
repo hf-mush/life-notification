@@ -4,6 +4,7 @@ import (
 	"fmt"
 	"log"
 	"os"
+	"time"
 
 	"github.com/joho/godotenv"
 )
@@ -39,4 +40,10 @@ func GetSlackAPIToken() string {
 // GetSlackChannel return slack channel.
 func GetSlackChannel() string {
 	return os.Getenv("SLACK_CHANNEL")
+}
+
+// GetLogFilePath return log file path.
+func GetLogFilePath() string {
+	logFileName := time.Now().In(time.FixedZone("Asia/Tokyo", 9*60*60)).Format("20060102") + ".log"
+	return os.Getenv("LOG_DIR_PATH") + logFileName
 }
