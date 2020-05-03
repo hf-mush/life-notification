@@ -8,7 +8,7 @@ import (
 	"log"
 	"net/http"
 
-	"github.com/hf-mush/life-notification/common"
+	"github.com/shuufujita/life-notification/common"
 )
 
 // https://api.slack.com/reference

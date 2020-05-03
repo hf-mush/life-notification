@@ -5,8 +5,8 @@ import (
 	"log"
 	"os"
 
-	"github.com/hf-mush/life-notification/common"
-	"github.com/hf-mush/life-notification/usecases"
+	"github.com/shuufujita/life-notification/common"
+	"github.com/shuufujita/life-notification/usecases"
 )
 
 func init() {

@@ -1,6 +1,6 @@
 package usecases
 
-import "github.com/hf-mush/life-notification/infrastructure"
+import "github.com/shuufujita/life-notification/infrastructure"
 
 // SlackChatPost post chat message.
 func SlackChatPost(message string) error {
